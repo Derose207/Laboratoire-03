@@ -217,24 +217,22 @@ class CollectionFilter{
         if (this.params && this.params.field){
           
             let fields  = this.params.field;
-            console.log(fields);
-            let Fields = fields.split(',');
-            console.log(Fields); 
            
-            console.log(Fields.length);
+            let Fields = fields.split(',');
+            
 
-            const uniqueData = new Set();
+            const SansDoublonsData = new Set();
 
             this.objectsList.forEach(item => {
                 
-                const FieldsSelectioner = {};
-                FieldsSelectioner.forEach(field => {
+                const selectedFields = {};
+                Fields.forEach(field => {
                   selectedFields[field] = item[field];
                 });
 
-                uniqueData.add(JSON.stringify(selectedFields));
+                SansDoublonsData.add(JSON.stringify(selectedFields));
               });
-              this.objectsList = Array.from(uniqueData).map(item => JSON.parse(item));
+              this.objectsList = Array.from(SansDoublonsData).map(item => JSON.parse(item));
         }
     }
     limit(){
@@ -249,8 +247,7 @@ class CollectionFilter{
             for (const field in this.params) {
 
                 const filterValue = this.params[field];
-                console.log(field);
-                console.log(filterValue);
+                
 
 
                 const nomFiltre = filterValue;
